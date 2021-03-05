@@ -1,0 +1,62 @@
+{% extends 'core/bases/base.html' %}
+{% load static %}
+
+{% block libs_css %}
+    <!-- DataTable -->
+        <link rel="stylesheet" href="{% static 'core/libs/DataTables/datatables.min.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="listado_clientes">
+    <div class="card border-left-primary shadow h-100 py-2">
+        <div class="card-body">
+            <div class="d-flex align-items-center">
+                <h5 class="text-uppercase font-weight-bolder text-gray-800">
+                    <i class="fas fa-clipboard-list mr-1"></i>
+                    {{ titulo }}
+                </h5>
+                <a class="btn btn-primary btn-icon-split ml-auto" href="{% url 'addClient' %}">
+                <span class="icon text-white">
+                    <i class="fas fa-user-plus"></i>
+                </span>
+                    <span class="text">
+                    Registrar Nuevo Cliente
+                </span>
+                </a>
+            </div>
+            <hr>
+            <table id="listadoClientes" class="table" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Img</th>
+                        <th>Nombre</th>
+                        <th>Edad</th>
+                        <th>Genero</th>
+                        <th>Telefono</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'core/libs/datatables/datatables.min.js' %}"></script>
+    <script>
+        var listClient = "{% url 'customersList' %}";
+        var urlDelete = "{% url 'addClient' %}";
+        // Programamos el eliminado segun el id que traiga el boton
+        function eliminar(dato) {
+            var parametros = {
+                "action": 'delete',
+                "id": dato
+            };
+            eliminarAjax(urlDelete, parametros, function () {
+                location.href = urlLazy
+            }, 'Esta seguro que desea eliminar al cliente', 'Eliminacion de Cliente')
+        };
+    </script>
+    <script src="{% static 'clientes/js/clientesList.js' %}"></script>
+{% endblock %}

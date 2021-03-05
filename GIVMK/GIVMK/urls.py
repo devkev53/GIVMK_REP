@@ -17,9 +17,23 @@ from django.contrib import admin
 from django.urls import path, include
 from core.views import HomePageView
 from django.conf.urls import url
+from django.conf import settings
+from django.conf.urls.static import static
+admin.autodiscover()
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^i18n/', include('django.conf.urls.i18n')),
+    url('', include('clientes.urls')),
     path('', HomePageView.as_view()),
 ]
+
+# Truco para poder ver ficheros multimedia con el DEBUG=TRUE
+if settings.DEBUG:
+    urlpatterns += static(
+        settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# Custom titles para el admin
+admin.site.site_header = 'Manejo Inventario MAry Kay'
+#  admin.site.index_title = 'No se que poner XD'
+admin.site.site_title = 'Administrador MK'

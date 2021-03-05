@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-03 00:37-0600\n"
+"POT-Creation-Date: 2021-03-04 19:43-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,42 +18,129 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\GIVMK\settings.py:125
+#: .\GIVMK\settings.py:128
 msgid "Espanish"
 msgstr ""
 
-#: .\GIVMK\settings.py:126
+#: .\GIVMK\settings.py:129
 msgid "Chinese"
 msgstr ""
 
-#: .\GIVMK\settings.py:127
+#: .\GIVMK\settings.py:130
 msgid "English"
 msgstr ""
+
+#: .\clientes\models.py:34
+msgid "Client"
+msgstr ""
+
+#: .\clientes\models.py:35
+msgid "Customers"
+msgstr ""
+
+#: .\clientes\models.py:48
+msgid "Client Phone Number"
+msgstr ""
+
+#: .\clientes\models.py:52 .\core\models.py:36
+msgid "Phone"
+msgstr ""
+
+#: .\clientes\models.py:53 .\core\models.py:37
+msgid "Phones"
+msgstr ""
+
+#: .\clientes\templates\clientes\client_form.html:4
+#: .\core\templates\core\base.html:86
+msgid "Add Client"
+msgstr ""
+
+#: .\clientes\views.py:75
+#, fuzzy
+#| msgid "Registrar un Nuevo Cliente"
+msgid "Register a New Customer"
+msgstr "Register a New Customer"
 
 #: .\core\apps.py:6
 msgid "core"
 msgstr ""
 
-#: .\core\models.py:7
+#: .\core\apps.py:7
+msgid "Core"
+msgstr ""
+
+#: .\core\models.py:8
+msgid "Male"
+msgstr ""
+
+#: .\core\models.py:9
+msgid "Female"
+msgstr ""
+
+#: .\core\models.py:14 .\user\models.py:28
+msgid "Creator User"
+msgstr ""
+
+#: .\core\models.py:16 .\user\models.py:30
+msgid "Creation date"
+msgstr ""
+
+#: .\core\models.py:18 .\user\models.py:32
+msgid "Modifier User"
+msgstr ""
+
+#: .\core\models.py:20 .\user\models.py:34
+msgid "Modification Date"
+msgstr ""
+
+#: .\core\models.py:31
 msgid "Phone Number"
 msgstr ""
 
-#: .\core\models.py:7
+#: .\core\models.py:31
 msgid "Add a phone number"
 msgstr ""
 
-#: .\core\models.py:8
+#: .\core\models.py:32
 msgid "Favorite"
 msgstr ""
 
-#: .\core\models.py:8
+#: .\core\models.py:32
 msgid "Check only is favorite"
 msgstr ""
 
-#: .\core\models.py:11
-msgid "Phone"
+#: .\core\models.py:43
+msgid "first_name"
 msgstr ""
 
-#: .\core\models.py:12
-msgid "Phones"
+#: .\core\models.py:44
+msgid "last_name"
+msgstr ""
+
+#: .\core\models.py:45
+msgid "gender"
+msgstr ""
+
+#: .\core\models.py:46
+msgid "Id Number"
+msgstr ""
+
+#: .\core\models.py:50
+msgid "BasePerson"
+msgstr ""
+
+#: .\core\models.py:51
+msgid "BasePersons"
+msgstr ""
+
+#: .\core\templates\core\base.html:74
+msgid "Clients"
+msgstr ""
+
+#: .\core\templates\core\base.html:81
+msgid "Clients List"
+msgstr ""
+
+#: .\core\templates\core\base.html:287
+msgid "SingIn"
 msgstr ""

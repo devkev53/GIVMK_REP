@@ -1,0 +1,84 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+{% include 'core/bases/head.html' %}
+</head>
+
+<body id="page-top">
+
+    <!-- Envoltura de la Pagina -->
+    <div id="wrapper">
+
+        <!-- Barra Lateral -->
+        {% include 'core/bases/sidebar.html' %}
+        <!-- End of Sidebar -->
+
+        <!-- Envoltura del Contenido -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Contenido Principal -->
+            <div id="content">
+
+                <!-- Topbar -->
+                {% include 'core/bases/topbar.html' %}
+                <!-- End of Topbar -->
+
+                <!-- Inicio del Contenido de la Pagina -->
+                <div class="container-fluid">
+                    {% block content %}{% endblock %}
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            {% include 'core/bases/footer.html' %}
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    {% include 'core/bases/modalLogout.html' %}
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="{% static 'core/libs/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'core/libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="{% static 'core/libs/jquery-easing/jquery.easing.min.js' %}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="{% static 'core/SbAdmin2/js/sb-admin-2.min.js' %}"></script>
+
+    <!-- Page level plugins -->
+    <script src="{% static 'core/libs/chart.js/Chart.min.js' %}"></script>
+
+    <!-- Page level plugins -->
+    <script src="{% static 'core/js/functions.js' %}"></script>
+
+     <!-- Page level plugins -->
+    <script src="{% static 'core/libs/JQueryConfirm/js/jquery-confirm.js' %}"></script>
+
+    <!-- Page level custom scripts
+    <script src="js/demo/chart-area-demo.js"></-script>
+    <script src="js/demo/chart-pie-demo.js"></-script>
+    -->
+    {% block js %}
+
+    {% endblock %}
+</body>
+
+</html>
