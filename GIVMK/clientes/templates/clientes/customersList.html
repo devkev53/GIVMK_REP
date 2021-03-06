@@ -1,6 +1,6 @@
 {% extends 'core/bases/base.html' %}
 {% load static %}
-
+{% block title %}Listado Clientes{% endblock %}
 {% block libs_css %}
     <!-- DataTable -->
         <link rel="stylesheet" href="{% static 'core/libs/DataTables/datatables.min.css' %}">
@@ -40,22 +40,30 @@
         </div>
     </div>
     </div>
+
 {% endblock %}
 
 {% block js %}
     <script src="{% static 'core/libs/datatables/datatables.min.js' %}"></script>
     <script>
         var listClient = "{% url 'customersList' %}";
-        var urlDelete = "{% url 'addClient' %}";
         // Programamos el eliminado segun el id que traiga el boton
         function eliminar(dato) {
-            var parametros = {
-                "action": 'delete',
-                "id": dato
-            };
-            eliminarAjax(urlDelete, parametros, function () {
-                location.href = urlLazy
-            }, 'Esta seguro que desea eliminar al cliente', 'Eliminacion de Cliente')
+            {% for object in object_list %}
+                var objeto = '{{object}}';
+                var id = '{{object.id}}';
+                if ( id == dato) {
+                    var url = '{% url 'deleteClient' object.id %}';
+                    return url;
+                    /*var parameters = new FormData();
+                    parameters.append('id', id);
+                    var content = 'Se eliminara el siguiente cliente: '+ objeto
+                    function llamarEliminacion(){
+                        eliminarAjaxList(url, parameters, function (){
+                         $('#tblClientes').html(); }, content, 'Eliminar')
+                    }*/
+                }
+            {% endfor %}
         };
     </script>
     <script src="{% static 'clientes/js/clientesList.js' %}"></script>

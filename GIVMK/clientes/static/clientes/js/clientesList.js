@@ -1,29 +1,29 @@
 $(function (){
     // Programamos el listado de clientes por ajax
-    $('#listadoClientes').DataTable( {
+    var tblClientes = $('#listadoClientes').DataTable({
         responsive: true,
         scrollX: true,
         autoWidth: false,
         destroy: true,
         deferRender: true,
         language: {
-	                "lengthMenu": "Mostrar _MENU_ registros por página",
-	                "zeroRecords": "No se encontraron Registros - Lo sentimos..!",
-	                "info": "Mostrando página _PAGE_ de _PAGES_",
-	                "infoEmpty": "No hay registros Disponibles",
-	                "search": "Buscar:",
-	                "infoFiltered": "(filtered from _MAX_ total records)",
-	                "loadingRecords": "Cargando...",
-	                "processing": "Procesando...",
-	                "thousands": ",",
-	                "decimal": "",
-	                "paginate": {
-	                    "first": "Primero",
-	                    "last": "Ultimo",
-	                    "next": "Siguiente",
-	                    "previous": "Anterior"
-	                }
-	            },
+            "lengthMenu": "Mostrar _MENU_ registros por página",
+            "zeroRecords": "No se encontraron Registros - Lo sentimos..!",
+            "info": "Mostrando página _PAGE_ de _PAGES_",
+            "infoEmpty": "No hay registros Disponibles",
+            "search": "Buscar:",
+            "infoFiltered": "(filtered from _MAX_ total records)",
+            "loadingRecords": "Cargando...",
+            "processing": "Procesando...",
+            "thousands": ",",
+            "decimal": "",
+            "paginate": {
+                "first": "Primero",
+                "last": "Ultimo",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            }
+        },
         ajax: {
             url: window.location.pathname,
             type: 'POST',
@@ -45,10 +45,10 @@ $(function (){
                 targets: [5],
                 class: 'text-center',
                 orderable: false,
-                render: function (data, type, row){
-                    var btn = '<button onclick="editar('+row.id+')" class="btn btn-warning btn-circle mr-2" title="Editar Cliente">';
+                render: function (data, type, row) {
+                    var btn = '<button onclick="editar(' + row.id + ')" class="btn btn-warning btn-circle mr-2" title="Editar Cliente">';
                     btn += '<i class="fas fa-user-edit"></i></button>';
-                    btn += '<button onclick="eliminar('+row.id+')" class="btn btn-danger btn-circle mr-1" title="Eliminar Cliente">';
+                    btn += '<button rel="delete" class="btn btn-danger btn-circle mr-1" title="Eliminar Cliente">';
                     btn += '<i class="fas fa-trash"></i></button>';
                     return btn;
                 }
@@ -56,14 +56,26 @@ $(function (){
             {
                 targets: [0],
                 class: 'text-center',
-                render: function (data, type, row){
-                    var img = '<img src="'+data+'" class="rounded-circle" width="45" height="45">'
+                render: function (data, type, row) {
+                    var img = '<img src="' + data + '" class="rounded-circle" width="45" height="45">'
                     return img;
                 }
             }
         ],
-        initComplete: function(settings, json) {
+        initComplete: function (settings, json) {
             console.log('%cSe ha cargado correctamente la tabla', 'color: blue;');
         }
-    } );
+    });
+    $('#listadoClientes tbody')
+        .on('click', 'button[rel="delete"]', function () {
+            var tr = tblClientes.cell($(this).closest('td, li')).index();
+            var data = tblClientes.row(tr.row).data();
+            var url = eliminar(data.id);
+            console.log(url);
+        });
+    // Funcion para eliminar de la lista
+    // function llamarEliminacion(id){
+    //     var url = eliminar(id);
+    //     console.log(url);
+    // }
 });

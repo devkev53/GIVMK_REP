@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, DeleteView
 from .models import Client
 from .forms import ClienteForm
 
@@ -41,7 +41,6 @@ class CustomerListView(ListView):
         context = super().get_context_data(**kwargs)
         context['titulo'] = _('Listado de Clientes')
         return context
-
 
 class ClientCreateView(CreateView):
     # permission_required = ['escuela.view_escuela', 'escuela.add_escuela']
@@ -84,3 +83,12 @@ class ClientCreateView(CreateView):
         context['action'] = 'add'
         context['titulo'] = _('Registrar un Nuevo Cliente')
         return context
+
+class ClientDeleteView(DeleteView):
+    model = Client
+    success_url = reverse_lazy('customersList')
+
+    @method_decorator(login_required)
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)

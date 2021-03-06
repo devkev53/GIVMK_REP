@@ -28,6 +28,7 @@ function submitAjaxFormData(url, parameters, callback, content, title) {
                         console.log(data.error)
                     }).fail(function (jqXHR, textStatus, errorThrown) {
                         console.log(textStatus + ': ' + errorThrown)
+                        console.log(jqXHR)
                     }).always(function (data) {
                     })
                 }
@@ -43,10 +44,10 @@ function submitAjaxFormData(url, parameters, callback, content, title) {
 
 };
 
-function eliminarAjax(url, parameters, callback, content, title) {
+function eliminarAjaxList(url, parameters, callback, content, title) {
     $.confirm({
-        type: 'blue',
-        icon: 'fa fa-info',
+        type: 'red',
+        icon: 'fas fa-exclamation-triangle',
         title: title,
         content: content,
         columnClass: 'small',
@@ -56,14 +57,15 @@ function eliminarAjax(url, parameters, callback, content, title) {
         buttons: {
             Ok: {
                 text: 'Si',
-                btnClass: 'btn-blue',
+                btnClass: 'btn-red',
                 action: function () {
-                    console.log(parameters)
+                    for (var pair of parameters.entries()) {
+                        console.log(pair[0] + ', ' + pair[1]);
+                    }
                     $.ajax({
                         type: 'POST',
                         url: url,
                         data: parameters,
-                        dataType: 'json',
                         processData: false,
                         contentType: false,
                     }).done(function (data) {
@@ -73,14 +75,14 @@ function eliminarAjax(url, parameters, callback, content, title) {
                         }
                         console.log(data.error)
                     }).fail(function (jqXHR, textStatus, errorThrown) {
-                        console.log(textStatus + ': ' + errorThrown)
+                        console.log('entro aqui XD')
                     }).always(function (data) {
                     })
                 }
             },
             cancelar: {
                 text: 'Cancelar',
-                btnClass: 'btn-orange',
+                btnClass: 'btn-secondary',
                 action: function () {
                 }
             },
