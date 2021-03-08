@@ -1,7 +1,28 @@
-function submitAjaxFormData(url, parameters, callback, content, title) {
+// Funcion para mostrar mensajes de error
+function message_error(obj) {
+    var html = '';
+    if (typeof (obj) === 'object') {
+        html = '<ul style="text-align: left;">';
+        $.each(obj, function (key, value) {
+            html += '<li>' + key + ': ' + value + '</li>';
+        });
+        html += '</ul>';
+    } else {
+        html = '<p>' + obj + '</p>';
+    }
+    $.alert({
+        title: 'Alerta..!',
+        content: html,
+        type: 'red',
+        icon: 'fas fa-exclamation-triangle',
+    });
+}
+
+// Funcion para hacer submit con Ajax e imagenes
+function submitAjaxFormData(url, parameters, callback, content, title, icon, color) {
     $.confirm({
-        type: 'blue',
-        icon: 'fa fa-info',
+        type: color,
+        icon: icon,
         title: title,
         content: content,
         columnClass: 'small',
@@ -11,8 +32,9 @@ function submitAjaxFormData(url, parameters, callback, content, title) {
         buttons: {
             Ok: {
                 text: 'Si',
-                btnClass: 'btn-blue',
+                btnClass: 'btn-success',
                 action: function () {
+                    console.log( parameters.get('img') );
                     $.ajax({
                         type: 'POST',
                         url: url,
@@ -25,17 +47,16 @@ function submitAjaxFormData(url, parameters, callback, content, title) {
                             callback();
                             return false;
                         }
-                        console.log(data.error)
+                        message_error(data.error)
                     }).fail(function (jqXHR, textStatus, errorThrown) {
-                        console.log(textStatus + ': ' + errorThrown)
-                        console.log(jqXHR)
+                        message_error(textStatus + ': ' + errorThrown)
                     }).always(function (data) {
                     })
                 }
             },
             cancelar: {
                 text: 'Cancelar',
-                btnClass: 'btn-orange',
+                btnClass: 'btn-secondary',
                 action: function () {
                 }
             },
@@ -44,6 +65,7 @@ function submitAjaxFormData(url, parameters, callback, content, title) {
 
 };
 
+// Funcion para eliminar con Ajax
 function eliminarAjaxList(url, parameters, callback, content, title) {
     $.confirm({
         type: 'red',
@@ -89,4 +111,23 @@ function eliminarAjaxList(url, parameters, callback, content, title) {
         }
     });
 
+};
+
+// Funcion para abrir modal
+function abrir_modal(url) {
+    $("#miModal").load(url, function(){
+        $(this).modal({
+            backdrop: 'static',
+            keyboard: false
+        });
+        $(this).modal('show');
+    });
+    return false;
+};
+
+// Funcion para cerrar modal
+function cerrar_modal(url)
+{
+    $('#popup').modal('hide');
+    return false;
 };

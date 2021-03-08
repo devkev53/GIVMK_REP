@@ -1,0 +1,117 @@
+{% extends 'core/bases/base.html' %}
+
+{% load i18n %}
+{% load static %}
+{% load imagekit%}
+
+{% block libs_css %}
+    <link rel="stylesheet" href="{% static 'core/libs/bootstrap/' %}">
+    <link rel="stylesheet" href="{% static 'core/css/GIV.css' %}">
+{% endblock %}
+
+{% block title %}
+    {% if object %}
+        {% trans 'Edit Client' %}
+    {% else %}
+        {% trans 'Add Client' %}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+<div class="card shadow mb-4
+    {% if object %}
+        border-left-warning
+    {% else %}
+        border-left-info
+    {% endif %}
+    shadow h-100">
+
+    <!-- Formulario -->
+    <form id="miForm" method="POST" class="g-3 needs-validation" enctype='multipart/form-data'>
+        {% csrf_token %}
+
+        <!-- Inicio del Header del Card -->
+        <div class="card-header">
+            <h6 class="m-0 font-weight-bold text-gray-800 text-uppercase">
+                {% if object %}
+                    <i class="fas fa-user-edit"></i>
+                {% else %}
+                    <i class="fas fa-user-plus mr-1"></i>
+                {% endif %}
+                {{ titulo }}
+            </h6>
+        </div>
+        <!-- Inicio del Body del Card -->
+        <div class="card-body">
+            <!-- Input oculto que contendra el action -->
+            <input type="text" name="action" value="{{ action }}" hidden>
+            <div class="form-row">
+            {% block img_form %}
+                <div class="form-group col-md-1 mr-4" id="preview">
+                    <img id="view_img" src="
+                            {% if object %}
+                                {{ object.get_img }}"
+                    {% else %}
+                        {% static 'core/img/NoImg.png' %}"
+                    {% endif %}
+                    alt="" class="img-fluid rounded-circle">
+                </div>
+                <div class="form-group col-md-10 ml-4">
+                    <label for="" class="form-label">{{ form.img.label }}</label>
+                    {{ form.img }}
+                </div>
+            {% endblock %}
+
+            {% block campos_form %}
+            {% endblock %}
+            </div>
+        </div>
+
+        <!-- Inicio del Footer del Card -->
+        <div class="card-footer">
+            <div class="buttons mt-2 d-flex justify-content-end">
+                <button type="submit" class="btn btn-success btn-icon-split mr-4">
+                <span class="icon text-white">
+                    <i class="fas fa-save mr-1"></i>
+                </span>
+                    <span class="text text-uppercase">
+                    Guardar
+                </span>
+                </button>
+                <a class="btn btn-danger btn-icon-split" href="{% url 'customersList' %}">
+                <span class="icon text-white">
+                    <i class="fas fa-backspace mr-1"></i>
+                </span>
+                    <span class="text text-uppercase">
+                    Cancelar
+                </span>
+                </a>
+            </div>
+        </div>
+
+    </form>
+</div>
+</div>
+{% endblock %}
+
+{% block js %}
+    {% block mis_script %}{% endblock %}
+    <script>
+        var color
+        var icon
+        var title = '{{ titleAlert }}';
+        var title = '{{ titleAlert }}';
+        var content = '{{ contentAlert }}';
+        var urlLazy = '{{ lazyUrl }}';
+        {% if object %}
+            color = 'purple';
+            icon = 'fas fa-edit';
+        {% else %}
+            color = 'blue';
+            icon = 'fas fa-save';
+        {% endif %}
+    </script>
+    <script src="{% static 'core/libs/jquery-ui-1.12.1/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'core/js/forms.js' %}"></script>
+{% endblock %}

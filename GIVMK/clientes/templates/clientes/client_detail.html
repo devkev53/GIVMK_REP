@@ -1,0 +1,55 @@
+<div class="modal-dialog modal-md modal-dialog-centered">
+    <div class="modal-content">
+        <div class="card border-left-dark shadow h-100">
+
+            <div class="modal-header">
+                <div class="row align-items-center">
+                    <img src="{{ object.get_img }}" class="rounded-circle img-thumbnail mr-3" width="75">
+                    <h5 class="mb-2 font-weight-bold text-gray-500 text-uppercase">
+                        {{ object.getFullName }}
+                    </h5>
+                </div>
+                <button type="button" class="close" data-dismiss="modal">
+                    <i class="fas fa-window-close text-danger"></i>
+                </button>
+            </div>
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                    <span>
+                        <b><i class="fas fa-phone-square-alt"></i> Telefono: </b>
+                        {{ object.tel }}
+                    </span>
+                    </div>
+                    <div class="col-12">
+                    <span>
+                        <b><i class="fas fa-birthday-cake"></i></i> Cumpleanos: </b>
+                        {{ object.nacimiento|date:"j F" }}
+                    </span>
+                    </div>
+                    <div class="col-12">
+                    <span>
+                        <b><i class="fas fa-calendar-day"></i> Edad: </b>
+                        {{ object.edad }}
+                    </span>
+                    </div>
+                    <div class="col-12">
+                    <span>
+                        <b><i class="fas fa-laugh-wink"></i> Tipo de Piel: </b>
+                        {{ object.edad }}
+                    </span>
+                    </div>
+                    <div class="col-12">
+                        <hr>
+                        <h4 class="text-info">
+                            <b><i class="fas fa-shopping-cart"></i></i> Comprado en el mes: </b>
+                            {{ object.edad }}
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

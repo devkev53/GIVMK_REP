@@ -7,7 +7,8 @@ from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import ListView, CreateView, DeleteView
+from django.views.generic import ListView, CreateView, DeleteView, UpdateView
+from django.views.generic.detail import DetailView
 from .models import Client
 from .forms import ClienteForm
 
@@ -48,6 +49,7 @@ class ClientCreateView(CreateView):
     form_class = ClienteForm
     # fields = '__all__'
     success_url = reverse_lazy('customersList')
+    url_redirect = success_url
 
     @method_decorator(login_required)
     @method_decorator(csrf_exempt)
@@ -68,10 +70,6 @@ class ClientCreateView(CreateView):
                     form.save()
                 else:
                     data['error'] = form.errors
-            elif action == 'delete':
-                # Obtenemos el objeto
-                print('Se tendria que eliminar el dato')
-                Client.objects.filter(id=request.POST['id']).delete()
             else:
                 data['error'] = 'No ha ingresado a Ninguna Opcion'
         except Exception as e:
@@ -82,6 +80,9 @@ class ClientCreateView(CreateView):
         context = super().get_context_data(**kwargs)
         context['action'] = 'add'
         context['titulo'] = _('Registrar un Nuevo Cliente')
+        context['lazyUrl'] = self.url_redirect
+        context['contentAlert'] = _('Esta seguro de crerar este nuevo cliente')
+        context['titleAlert'] = _('Crear nuevo Cliente')
         return context
 
 class ClientDeleteView(DeleteView):
@@ -92,3 +93,51 @@ class ClientDeleteView(DeleteView):
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
+
+class ClientUpdateView(UpdateView):
+    model = Client
+    form_class = ClienteForm
+    template_name = 'clientes/client_form.html'
+    success_url = reverse_lazy('customersList')
+    url_redirect = success_url
+
+    def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return super().dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        data = {}
+        try:
+            action = request.POST['action']
+            if action == 'update':
+                cli = Client.objects.filter(id=kwargs['pk']).get()
+                cli.firts_name = request.POST['firts_name']
+                cli.last_name = request.POST['last_name']
+                cli.gender = request.POST['gender']
+                cli.idNumber = request.POST['idNumber']
+                cli.nacimiento = request.POST['nacimiento']
+                cli.NIT = request.POST['NIT']
+                cli.tel = request.POST['tel']
+                # Validamos si trae cambio de img
+                if request.FILES:
+                    print('Si trae imagen')
+                    cli.img = request.FILES['img']
+                cli.save()
+                print(cli.img)
+            else:
+                data['error'] = 'No ha ingresado a ninguna opción'
+        except Exception as e:
+            data['error'] = str(e)
+        return JsonResponse(data)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['action'] = 'update'
+        context['titulo'] = _('Editar Cliente')
+        context['lazyUrl'] = self.url_redirect
+        context['contentAlert'] = _('Esta seguro de editar el cliente')
+        context['titleAlert'] = _('Editar Cliente')
+        return context
+
+class ClientDetailView(DetailView):
+    model = Client

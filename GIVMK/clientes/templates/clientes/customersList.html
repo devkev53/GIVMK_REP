@@ -1,70 +1,73 @@
-{% extends 'core/bases/base.html' %}
+{% extends 'core/bases/list_base.html' %}
 {% load static %}
 {% block title %}Listado Clientes{% endblock %}
-{% block libs_css %}
-    <!-- DataTable -->
-        <link rel="stylesheet" href="{% static 'core/libs/DataTables/datatables.min.css' %}">
+
+{% block card_titulo %}
+<i class="fas fa-clipboard-list mr-1"></i>
+    {{ titulo }}
+{% endblock %}
+{% block btn_add %}
+    <a class="btn btn-primary btn-icon-split ml-auto" href="{% url 'addClient' %}">
+        <span class="icon text-white">
+            <i class="fas fa-user-plus"></i>
+        </span>
+        <span class="text">
+            Registrar Nuevo Cliente
+        </span>
+    </a>
+{% endblock %}
+{% block tabla %}
+<table id="listadoClientes" class="table" width="100%" cellspacing="0">
+    <thead>
+    <tr>
+        <th>Img</th>
+        <th>Nombre</th>
+        <th>Edad</th>
+        <th>Genero</th>
+        <th>Telefono</th>
+        <th>Acciones</th>
+    </tr>
+    </thead>
+</table>
 {% endblock %}
 
-{% block content %}
-    <div class="listado_clientes">
-    <div class="card border-left-primary shadow h-100 py-2">
-        <div class="card-body">
-            <div class="d-flex align-items-center">
-                <h5 class="text-uppercase font-weight-bolder text-gray-800">
-                    <i class="fas fa-clipboard-list mr-1"></i>
-                    {{ titulo }}
-                </h5>
-                <a class="btn btn-primary btn-icon-split ml-auto" href="{% url 'addClient' %}">
-                <span class="icon text-white">
-                    <i class="fas fa-user-plus"></i>
-                </span>
-                    <span class="text">
-                    Registrar Nuevo Cliente
-                </span>
-                </a>
-            </div>
-            <hr>
-            <table id="listadoClientes" class="table" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>Img</th>
-                        <th>Nombre</th>
-                        <th>Edad</th>
-                        <th>Genero</th>
-                        <th>Telefono</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-            </table>
-        </div>
-    </div>
-    </div>
-
-{% endblock %}
-
-{% block js %}
-    <script src="{% static 'core/libs/datatables/datatables.min.js' %}"></script>
+{% block mis_scripts %}
+    <script src="{% static 'clientes/js/clientesList.js' %}"></script>
     <script>
         var listClient = "{% url 'customersList' %}";
+
         // Programamos el eliminado segun el id que traiga el boton
-        function eliminar(dato) {
+        function obtenerUrlDelete(dato) {
             {% for object in object_list %}
                 var objeto = '{{object}}';
                 var id = '{{object.id}}';
-                if ( id == dato) {
+                if (id == dato) {
                     var url = '{% url 'deleteClient' object.id %}';
                     return url;
-                    /*var parameters = new FormData();
-                    parameters.append('id', id);
-                    var content = 'Se eliminara el siguiente cliente: '+ objeto
-                    function llamarEliminacion(){
-                        eliminarAjaxList(url, parameters, function (){
-                         $('#tblClientes').html(); }, content, 'Eliminar')
-                    }*/
                 }
             {% endfor %}
-        };
+        }
+
+        function obtenerUrlEdit(dato) {
+            {% for object in object_list %}
+                var objeto = '{{object}}';
+                var id = '{{object.id}}';
+                if (id == dato) {
+                    var url = '{% url 'updateClient' object.id %}';
+                    return url;
+                }
+            {% endfor %}
+        }
+
+        function obtenerUrlView(dato) {
+            {% for object in object_list %}
+                var objeto = '{{object}}';
+                var id = '{{object.id}}';
+                if (id == dato) {
+                    var url = '{% url 'detailClient' object.id %}';
+                    return url;
+                }
+            {% endfor %}
+        }
     </script>
-    <script src="{% static 'clientes/js/clientesList.js' %}"></script>
 {% endblock %}

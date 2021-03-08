@@ -1,3 +1,13 @@
-input[required]~label{
-	font-weight: bold;
+.avatar-control{
+	display: block;
+    width: 100%;
+	background: red;
+}
+input[type=button]{
+	border-radius: .25rem;
+	border: none;
+	box-shadow: 2px 2px 2px #5a5c69;
+}
+input[type=button]:before{
+	content: 'Hola';
 }

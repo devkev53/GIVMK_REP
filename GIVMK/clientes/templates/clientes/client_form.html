@@ -1,87 +1,36 @@
-{% extends 'core/bases/base.html' %}
+{% extends 'core/bases/form_base.html' %}
 {% load i18n %}
 {% load static %}
-{% block libs_css %}
-    <link rel="stylesheet" href="{% static 'core/css/GIV.css' %}">
-{% endblock %}
-{% block title %}{% trans 'Add Client' %}{% endblock %}
 
-{% block content %}
-<div class="col">
-<div class="card border-left-info shadow h-100 py-2">
-
-    <!-- Inicio del Body del Card -->
-
-    <div class="card-body">
-        <h5 class="text-uppercase font-weight-bolder text-gray-800">
-            <i class="fas fa-user-plus mr-1"></i>
-            {{ titulo }}
-        </h5>
-        <hr>
-        <!-- Formulario -->
-        <form id="clienteForm" method="POST" class="g-3 needs-validation">
-            {% csrf_token %}
-
-            <!-- Input oculto que contendra el action -->
-            <input type="text" name="action" value="{{ action }}" hidden>
-            <div class="row form-group">
-                <div class="col-md-6">
-                    <label for="id_firts_name" class="form-label">{{ form.firts_name.label }}</label>
-                    {{ form.firts_name }}
-                </div>
-                <div class="col-md-6">
-                    <label for="" class="form-label">{{ form.last_name.label }}</label>
-                    {{ form.last_name }}
-                </div>
-                <div class="col-md-6">
-                    <label for="" class="form-label">{{ form.gender.label }}</label>
-                    {{ form.gender }}
-                </div>
-                <div class="col-md-6">
-                    <label for="" class="form-label">{{ form.idNumber.label }}</label>
-                    {{ form.idNumber }}
-                </div>
-                <div class="col-md-4">
-                    <label for="" class="form-label">{{ form.nacimiento.label }}</label>
-                    {{ form.nacimiento }}
-                </div>
-                <div class="col-md-4">
-                    <label for="" class="form-label">{{ form.NIT.label }}</label>
-                    {{ form.NIT }}
-                </div>
-                <div class="col-md-4">
-                    <label for="" class="form-label">{{ form.img.label }}</label>
-                    {{ form.img }}
-                </div>
-            </div>
-            <hr>
-            <div class="buttons mt-2 d-flex justify-content-end">
-                <button type="submit" class="btn btn-success btn-icon-split mr-4">
-                <span class="icon text-white">
-                    <i class="fas fa-save mr-1"></i>
-                </span>
-                    <span class="text text-uppercase">
-                    Guardar
-                </span>
-                </button>
-                <a class="btn btn-danger btn-icon-split" href="{% url 'customersList' %}">
-                <span class="icon text-white">
-                    <i class="fas fa-backspace mr-1"></i>
-                </span>
-                    <span class="text text-uppercase">
-                    Cancelar
-                </span>
-                </a>
-            </div>
-        </form>
+{% block campos_form %}
+    <div class="form-group col-md-6">
+        <label for="id_firts_name" class="form-label">{{ form.firts_name.label }}</label>
+        {{ form.firts_name }}
     </div>
-</div>
-</div>
-{% endblock %}
+    <div class="form-group col-md-6">
+        <label for="" class="form-label">{{ form.last_name.label }}</label>
+        {{ form.last_name }}
+    </div>
 
-{% block js %}
-    <script>
-        var urlLazy = '{% url 'customersList' %}';
-    </script>
-    <script src="{% static 'core/js/forms.js' %}"></script>
+    <div class="form-group col-md-6">
+        <label for="" class="form-label">{{ form.gender.label }}</label>
+        {{ form.gender }}
+    </div>
+    <div class="form-group col-md-6">
+        <label for="" class="form-label">{{ form.idNumber.label }}</label>
+        {{ form.idNumber }}
+    </div>
+
+    <div class="form-group col-md-4">
+        <label for="" class="form-label">{{ form.nacimiento.label }}</label>
+        {{ form.nacimiento }}
+    </div>
+    <div class="form-group col-md-4">
+        <label for="" class="form-label">{{ form.NIT.label }}</label>
+        {{ form.NIT }}
+    </div>
+    <div class="form-group col-md-4">
+                    <label for="exampleFormControlFile1">{{ form.tel.label }}</label>
+                    {{ form.tel }}
+                </div>
 {% endblock %}

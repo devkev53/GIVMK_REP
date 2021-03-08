@@ -3,6 +3,7 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import User
 from GIVMK.settings import AUTH_USER_MODEL
 from datetime import date
+from crum import get_current_user
 
 
 # Create your models here.
@@ -29,6 +30,18 @@ class Base(models.Model):
     def __str__(self):
         pass
 
+    def save(self):
+        print('Se creo un nuevo producto')
+        # self.calcularExistencia()
+        # Guardando el user
+        user = get_current_user()
+        if user is not None:
+            if not self.pk:
+                self.userCreate = user
+            else:
+                self.userUpdate = user
+        super(Base, self).save()
+
 class BasePhone(Base):
     phone_number = models.CharField(_('Phone Number'), max_length=15, help_text=_('Add a phone number'))
     is_favorite = models.BooleanField(_('Favorite'), help_text=_('Check only is favorite'), default=True)
@@ -47,6 +60,7 @@ class BasePerson(Base):
     gender = models.CharField(_('gender'), max_length=1, choices=GENDER_CHOICES)
     idNumber = models.CharField(_('Id Number'), max_length=75, blank=True, null=True)
     nacimiento = models.DateField('Fecha de Nacimiento', blank=True, null=True)
+    tel = models.CharField(_('Phone'), max_length=75, blank=True, null=True)
 
     def edad(self):
         hoy = date.today()

@@ -37,7 +37,7 @@ $(function (){
             {'data': 'nombre'},
             {'data': 'edad'},
             {'data': 'gender'},
-            {'data': 'phone'},
+            {'data': 'tel'},
             {'data': 'id'},
         ],
         columnDefs: [
@@ -46,10 +46,12 @@ $(function (){
                 class: 'text-center',
                 orderable: false,
                 render: function (data, type, row) {
-                    var btn = '<button onclick="editar(' + row.id + ')" class="btn btn-warning btn-circle mr-2" title="Editar Cliente">';
+                    var btn = '<button rel="edit" class="btn btn-warning btn-circle mr-2" title="Editar Cliente">';
                     btn += '<i class="fas fa-user-edit"></i></button>';
-                    btn += '<button rel="delete" class="btn btn-danger btn-circle mr-1" title="Eliminar Cliente">';
+                    btn += '<button rel="delete" class="btn btn-danger btn-circle mr-2" title="Eliminar Cliente">';
                     btn += '<i class="fas fa-trash"></i></button>';
+                    btn += '<button rel="view" class="btn btn-info btn-circle mr-1" title="Eliminar Cliente">';
+                    btn += '<i class="fas fa-eye"></i></button>';
                     return btn;
                 }
             },
@@ -66,16 +68,48 @@ $(function (){
             console.log('%cSe ha cargado correctamente la tabla', 'color: blue;');
         }
     });
+
+    // Obtenemos el evento del boton eliminar
     $('#listadoClientes tbody')
         .on('click', 'button[rel="delete"]', function () {
+            // tomamos la linea de la tabla
             var tr = tblClientes.cell($(this).closest('td, li')).index();
+            // tomamos el dato
             var data = tblClientes.row(tr.row).data();
-            var url = eliminar(data.id);
+            // mandamos a pedir la url dinamica
+            var url = obtenerUrlDelete(data.id);
+            var parameters = new FormData();
+            parameters.append('id', data.id);
+            var content = 'Se eliminara el siguiente cliente: '+ data.nombre;
             console.log(url);
+            eliminarAjaxList(url, parameters, function (){
+                tblClientes.ajax.reload(); }, content, 'Eliminar')
         });
-    // Funcion para eliminar de la lista
-    // function llamarEliminacion(id){
-    //     var url = eliminar(id);
-    //     console.log(url);
-    // }
+
+    // Obtenemos el evento del boton editar
+    $('#listadoClientes tbody')
+        .on('click', 'button[rel="edit"]', function () {
+            // tomamos la linea de la tabla
+            var tr = tblClientes.cell($(this).closest('td, li')).index();
+            // tomamos el dato
+            var data = tblClientes.row(tr.row).data();
+            // mandamos a pedir la url dinamica
+            var url = obtenerUrlEdit(data.id);
+            // llamamos a el tempalte con el cliente
+            location.href = url;
+        });
+
+    // Obtenemos el evento del boton vista
+    $('#listadoClientes tbody')
+        .on('click', 'button[rel="view"]', function () {
+
+            // tomamos la linea de la tabla
+            var tr = tblClientes.cell($(this).closest('td, li')).index();
+            // tomamos el dato
+            var data = tblClientes.row(tr.row).data();
+            // mandamos a pedir la url dinamica
+            var url = obtenerUrlView(data.id);
+
+            abrir_modal(url);
+        });
 });

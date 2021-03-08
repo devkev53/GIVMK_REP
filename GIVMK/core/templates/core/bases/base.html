@@ -1,5 +1,12 @@
 {% load static %}
 {% load i18n %}
+
+<!-- Url's de Cliente -->
+{% url 'customersList' as  ClientList %}
+{% url 'addClient' as  AddClient %}
+{% url 'updateClient' as  UpdateClient %}
+<!-- Url's de Cliente -->
+{% url 'productosList' as  productosList %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -55,8 +62,12 @@
     <!-- Logout Modal-->
     {% include 'core/bases/modalLogout.html' %}
 
+    <div class="modal fade" id="miModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        {% block modal %}{% endblock %}
+    </div>
+
     <!-- Bootstrap core JavaScript-->
-    <script src="{% static 'core/libs/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'core/libs/jquery/jquery-3.4.1.min.js' %}"></script>
     <script src="{% static 'core/libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
     <!-- Core plugin JavaScript-->
@@ -71,8 +82,11 @@
     <!-- Page level plugins -->
     <script src="{% static 'core/js/functions.js' %}"></script>
 
-     <!-- Page level plugins -->
+    <!-- Page level plugins -->
     <script src="{% static 'core/libs/JQueryConfirm/js/jquery-confirm.js' %}"></script>
+
+    <!-- Page level plugins -->
+    <script src="{% static 'core/libs/jQuery-Mask-Plugin-master/dist/jquery.mask.js' %}"></script>
 
     <!-- Page level custom scripts
     <script src="js/demo/chart-area-demo.js"></-script>
