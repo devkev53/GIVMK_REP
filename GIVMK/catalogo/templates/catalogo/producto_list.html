@@ -24,7 +24,7 @@
         <th class="text-center" width="40%">Nombre</th>
         <th>Consultora</th>
         <th>Catalogo</th>
-        <th>existecias</th>
+        <th>Existecias</th>
         <th>Acciones</th>
     </tr>
     </thead>
@@ -36,6 +36,25 @@
     <script>
         var listClient = "{% url 'productosList' %}";
 
+        // funcion para obtener url por dato y tipo de parametro
+        function obtenerUrl(dato, accion){
+            {% for object in object_list %}
+                var url;
+                var objeto = '{{object}}';
+                var id = '{{object.id}}';
+                if (id == dato) {
+                    if (accion == 'eliminar'){
+                        url = '{% url 'deleteProducto' object.id %}';
+                    }else if (accion == 'editar'){
+                        url = '{% url 'updateProducto' object.id %}';
+                    }else if (accion == 'ver'){
+                        url = '{% url 'detailProducto' object.id %}';
+                    }
+                    return url;
+                }
+            {% endfor %}
+        }
+
         // Programamos el eliminado segun el id que traiga el boton
         function obtenerUrlDelete(dato) {
             {% for object in object_list %}
@@ -43,28 +62,6 @@
                 var id = '{{object.id}}';
                 if (id == dato) {
                     var url = '{% url 'deleteClient' object.id %}';
-                    return url;
-                }
-            {% endfor %}
-        }
-
-        function obtenerUrlEdit(dato) {
-            {% for object in object_list %}
-                var objeto = '{{object}}';
-                var id = '{{object.id}}';
-                if (id == dato) {
-                    var url = '{% url 'updateClient' object.id %}';
-                    return url;
-                }
-            {% endfor %}
-        }
-
-        function obtenerUrlView(dato) {
-            {% for object in object_list %}
-                var objeto = '{{object}}';
-                var id = '{{object.id}}';
-                if (id == dato) {
-                    var url = '{% url 'detailClient' object.id %}';
                     return url;
                 }
             {% endfor %}

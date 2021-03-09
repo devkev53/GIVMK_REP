@@ -60,7 +60,7 @@
              data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Acciones de Inentario:</h6>
-                <a class="collapse-item" href="utilities-color.html">
+                <a class="collapse-item" href="{{ pedidosList }}">
                     <i class="bi bi-archive-fill mr-2"></i>
                     Listado de Pedidos
                 </a>
@@ -71,14 +71,11 @@
         </div>
     </li>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider">
-
      <!-- Productos -->
     <li class="nav-item {% if request.path == productosList %} active {% endif %}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse3"
            aria-expanded="true" aria-controls="collapseTwo">
-            <i class="bi bi-gem"></i>
+            <svg width="1rem" height="1rem" aria-hidden="true" focusable="false" data-prefix="fad" data-icon="box-full" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" class="svg-inline--fa fa-box-full fa-w-20 fa-2x __web-inspector-hide-shortcut__"><g class="fa-group"><path fill="currentColor" d="M439 382.1L576 343v82a32.07 32.07 0 0 1-24.2 31l-216.4 54.1a65 65 0 0 1-31 0L88.24 456A31.9 31.9 0 0 1 64 425v-82l137.1 39.2c28.6 8.2 48.3-10.9 54.7-21.6L320 254l64.3 106.6c6.54 10.8 26.24 29.7 54.7 21.5z" class="fa-secondary"></path><path fill="currentColor" d="M194.24 143.7A63.28 63.28 0 0 1 192 128a64 64 0 1 1 128 0 62.84 62.84 0 0 1-8.2 30.7l8.2 1L475.34 140 511 41.7a16 16 0 0 0-9.6-20.5L445.94 1a16 16 0 0 0-20.5 9.6L383.74 125C382 55.7 325.74 0 256 0a128 128 0 0 0-128 128c0 2.5.6 4.9.7 7.4zm444.1 128.1L586.84 169a16.33 16.33 0 0 0-16.7-8.9L320 192l91.7 152.1a16.44 16.44 0 0 0 18.5 7.3l197.9-56.5a16.47 16.47 0 0 0 10.24-23.1zM53.24 169L1.74 271.8a16.3 16.3 0 0 0 10.1 23l197.9 56.5a16.44 16.44 0 0 0 18.5-7.3L320 192 69.84 160.1a16.34 16.34 0 0 0-16.6 8.9z" class="fa-primary"></path></g></svg>
             <span>Productos</span>
         </a>
         <div id="collapse3" class="collapse" aria-labelledby="headingTwo"
@@ -89,6 +86,11 @@
                    href="{% url 'productosList' %}">
                     <i class="fas fa-list-alt mr-1"></i>
                     Listado de Productos
+                </a>
+                <a class="collapse-item {% if request.path == AddClient or UpdateClient %} active {% endif %} "
+                   href="{{ addProductos }}">
+                    <svg width="1rem" height="1rem" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="layer-plus" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-layer-plus fa-w-16 fa-2x"><path fill="currentColor" d="M304 144h64v64c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16v-64h64c8.84 0 16-7.16 16-16V96c0-8.84-7.16-16-16-16h-64V16c0-8.84-7.16-16-16-16h-32c-8.84 0-16 7.16-16 16v64h-64c-8.84 0-16 7.16-16 16v32c0 8.84 7.16 16 16 16zm195.59 220.1l-58.54-26.53-161.19 73.06c-7.56 3.43-15.59 5.17-23.86 5.17s-16.29-1.74-23.86-5.17L70.95 337.57 12.41 364.1c-16.55 7.5-16.55 32.5 0 40l232.94 105.59c6.8 3.08 14.49 3.08 21.29 0L499.59 404.1c16.55-7.5 16.55-32.5 0-40zM12.41 275.9l232.94 105.59c6.8 3.08 14.49 3.08 21.29 0L448 299.28V280.7c-15.32 4.38-31.27 7.29-48 7.29-88.01 0-160.72-64.67-173.72-149.04L12.41 235.9c-16.55 7.5-16.55 32.5 0 40z" class=""></path></svg>
+                    Agregar Producto
                 </a>
 
             </div>

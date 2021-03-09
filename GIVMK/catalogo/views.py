@@ -84,3 +84,56 @@ class ProductoCreateView(CreateView):
         context['contentAlert'] = _('Esta seguro de crerar este nuevo producto')
         context['titleAlert'] = _('Crear nuevo Producto')
         return context
+
+class ProductoDeleteView(DeleteView):
+    model = Producto
+    success_url = reverse_lazy('productosList')
+
+    @method_decorator(login_required)
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+class ProductoUpdateView(UpdateView):
+    model = Producto
+    form_class = ProductoForm
+    template_name = 'catalogo/producto_form.html'
+    success_url = reverse_lazy('productosList')
+    url_redirect = success_url
+
+    def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return super().dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        data = {}
+        try:
+            action = request.POST['action']
+            if action == 'update':
+                pro = Producto.objects.filter(id=kwargs['pk']).get()
+                pro.nombre = request.POST['nombre']
+                pro.precio_consultora = request.POST['precio_consultora']
+                pro.precio_catalogo = request.POST['precio_catalogo']
+                pro.descripcion = request.POST['descripcion']
+                # Validamos si trae cambio de img
+                if request.FILES:
+                    print('Si trae imagen')
+                    pro.img = request.FILES['img']
+                pro.save()
+            else:
+                data['error'] = 'No ha ingresado a ninguna opción'
+        except Exception as e:
+            data['error'] = str(e)
+        return JsonResponse(data)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['action'] = 'update'
+        context['titulo'] = _('Editar Producto')
+        context['lazyUrl'] = self.url_redirect
+        context['contentAlert'] = _('Esta seguro de editar el producto')
+        context['titleAlert'] = _('Editar Producto')
+        return context
+
+class ProductoDetailView(DetailView):
+    model = Producto

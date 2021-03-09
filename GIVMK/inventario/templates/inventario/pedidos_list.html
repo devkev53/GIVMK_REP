@@ -1,0 +1,74 @@
+{% extends 'core/bases/list_base.html' %}
+
+{% load static %}
+{% block title %}Listado Clientes{% endblock %}
+
+{% block card_titulo %}
+<i class="fas fa-clipboard-list mr-1"></i>
+    {{ titulo }}
+{% endblock %}
+{% block btn_add %}
+    <a class="btn btn-primary btn-icon-split ml-auto" href="{% url 'addClient' %}">
+        <span class="icon text-white">
+            <i class="fas fa-box"></i>
+        </span>
+        <span class="text">
+            Registrar Nuevo Pedido
+        </span>
+    </a>
+{% endblock %}
+{% block tabla %}
+<table id="listadoPedidos" class="table" width="100%" cellspacing="0">
+    <thead>
+    <tr>
+        <th>Fecha</th>
+        <th>Referencia</th>
+        <th>Cantidad de Productos</th>
+        <th>Total Consultora</th>
+        <th>Total Catalogo</th>
+        <th>Acciones</th>
+    </tr>
+    </thead>
+</table>
+{% endblock %}
+
+{% block mis_scripts %}
+    <script src="{% static 'inventario/js/pedidosList.js' %}"></script>
+    <script>
+        var listClient = "{% url 'customersList' %}";
+
+        // Programamos el eliminado segun el id que traiga el boton
+        function obtenerUrlDelete(dato) {
+            {% for object in object_list %}
+                var objeto = '{{object}}';
+                var id = '{{object.id}}';
+                if (id == dato) {
+                    var url = '{% url 'deleteClient' object.id %}';
+                    return url;
+                }
+            {% endfor %}
+        }
+
+        function obtenerUrlEdit(dato) {
+            {% for object in object_list %}
+                var objeto = '{{object}}';
+                var id = '{{object.id}}';
+                if (id == dato) {
+                    var url = '{% url 'updateClient' object.id %}';
+                    return url;
+                }
+            {% endfor %}
+        }
+
+        function obtenerUrlView(dato) {
+            {% for object in object_list %}
+                var objeto = '{{object}}';
+                var id = '{{object.id}}';
+                if (id == dato) {
+                    var url = '{% url 'detailClient' object.id %}';
+                    return url;
+                }
+            {% endfor %}
+        }
+    </script>
+{% endblock %}

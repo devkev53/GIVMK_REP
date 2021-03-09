@@ -6,17 +6,29 @@
         <label for="id_nombre" class="form-label">{{ form.nombre.label }}:</label>
         {{ form.nombre }}
     </div>
-    <div class="col-12 col-md-6"></div>
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-3">
         <label for="id_precio_consultora" class="form-label">{{ form.precio_consultora.label }}:</label>
-        {{ form.precio_consultora }}
+        <div class="input-group">
+            <span class="input-group-text" id="basic-addon1">Q. </span>
+            {{ form.precio_consultora }}
+        </div>
     </div>
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-3">
         <label for="id_precio_catalogo" class="form-label">{{ form.precio_catalogo.label }}:</label>
-        {{ form.precio_catalogo }}
+        <div class="input-group">
+            <span class="input-group-text" id="basic-addon1">Q. </span>
+            {{ form.precio_catalogo }}
+        </div>
     </div>
     <div class="form-group col-12">
         <label for="id_descripcion" class="form-label">{{ form.descripcion.label }}:</label>
         {{ form.descripcion }}
     </div>
+{% endblock %}
+
+{% block mis_script %}
+    <script>
+        $('#id_precio_consultora').mask("#,##0.00", {reverse: true});
+        $('#id_precio_catalogo').mask("#,##0.00", {reverse: true});
+    </script>
 {% endblock %}

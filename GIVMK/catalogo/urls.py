@@ -1,11 +1,11 @@
-from .views import ProductosListView, ProductoCreateView
-# from .views import ClientUpdateView, ClientDetailView
+from .views import ProductosListView, ProductoCreateView, ProductoDeleteView
+from .views import ProductoUpdateView, ProductoDetailView
 from django.urls import path, include
 
 urlpatterns = [
     path('productosList/', ProductosListView.as_view(), name='productosList' ),
     path('addProducto/', ProductoCreateView.as_view(), name='addProducto' ),
-    # path('deleteClient/<int:pk>/', ClientDeleteView.as_view(), name='deleteClient' ),
-    # path('updateClient/<int:pk>/', ClientUpdateView.as_view(), name='updateClient' ),
-    # path('detailClient/<int:pk>/', ClientDetailView.as_view(), name='detailClient' ),
+    path('deleteProducto/<int:pk>/', ProductoDeleteView.as_view(), name='deleteProducto' ),
+    path('updateProducto/<int:pk>/', ProductoUpdateView.as_view(), name='updateProducto' ),
+    path('detailProducto/<int:pk>/', ProductoDetailView.as_view(), name='detailProducto' ),
 ]

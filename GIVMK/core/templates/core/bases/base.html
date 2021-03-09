@@ -5,8 +5,14 @@
 {% url 'customersList' as  ClientList %}
 {% url 'addClient' as  AddClient %}
 {% url 'updateClient' as  UpdateClient %}
+
 <!-- Url's de Cliente -->
 {% url 'productosList' as  productosList %}
+{% url 'addProducto' as  addProductos %}
+
+<!-- Url's de Inventario -->
+{% url 'pedidosList' as  pedidosList %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -79,8 +85,9 @@
     <!-- Page level plugins -->
     <script src="{% static 'core/libs/chart.js/Chart.min.js' %}"></script>
 
-    <!-- Page level plugins -->
+    <!-- Mis Scripts Bases -->
     <script src="{% static 'core/js/functions.js' %}"></script>
+    <script src="{% static 'core/js/core.js' %}"></script>
 
     <!-- Page level plugins -->
     <script src="{% static 'core/libs/JQueryConfirm/js/jquery-confirm.js' %}"></script>

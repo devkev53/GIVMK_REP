@@ -19,16 +19,22 @@ class ProductoForm(forms.ModelForm):
         #         'class': 'form-control'
         #         }),
             'nombre': forms.TextInput(attrs={
-                'class': 'form-control'
+                'class': 'form-control',
+                'placeholder': 'Nombre del Producto a Registrar'
             }),
-            'precio_consultora': forms.NumberInput(attrs={
-                'class': 'form-control'
+            'precio_consultora': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': '0.00',
+                'aria-describedby': 'basic-addon1'
             }),
-            'precio_catalogo': forms.NumberInput(attrs={
-                'class': 'form-control'
+            'precio_catalogo': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': '0.00'
             }),
             'descripcion': forms.Textarea(attrs={
-                'class': 'form-control'
+                'class': 'form-control',
+                'rows': '3',
+                'placeholder': 'Ingrese una descripcion del producto'
             }),
         #     'NIT': forms.DateInput(attrs={
         #         'class': 'form-control'

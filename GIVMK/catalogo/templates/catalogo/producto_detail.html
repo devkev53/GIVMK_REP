@@ -1,0 +1,52 @@
+<div class="modal-dialog modal-md modal-dialog-centered">
+    <div class="modal-content">
+        <div class="card border-left-dark shadow h-100">
+
+            <div class="modal-header">
+                <div class="row align-items-center">
+                    <img src="{{ object.get_img }}" class="rounded-circle img-thumbnail mx-3" width="150">
+                    <div class="col">
+                        <h5 class="mb-2 font-weight-bold text-gray-500 text-uppercase">
+                            {{ object.nombre }}
+                        </h5>
+                    </div>
+                </div>
+                <button type="button" class="close" data-dismiss="modal">
+                    <i class="fas fa-window-close text-danger"></i>
+                </button>
+            </div>
+
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <div class="col-12 mb-1">
+                    <span>
+                        <b> <i class="bi bi-tags"></i> Precio Consultora: </b>
+                        <span class="badge bg-warning p-2 text-dark">
+                            <b>Q. {{ object.precio_catalogo|floatformat:"2" }}</b>
+                        </span>
+                    </span>
+                        </div>
+                        <div class="col-12 mb-1">
+                    <span>
+                        <b><i class="bi bi-tags-fill"></i> Precio Catalogo: </b>
+                        <span class="badge bg-info p-2 text-dark">
+                            <b>Q. {{ object.precio_consultora|floatformat:"2" }}</b>
+                        </span>
+                    </span>
+                        </div>
+                    </div>
+                    <div class="col-4 top10">
+                        <div class="col align-items-center text-info" align="center">
+                            <b>Top 10 mas Vendidos</b>
+                        </div>
+                        <div class="col" align="center">
+                            <i class="fas fa-medal text-warning" style="font-size: 3rem"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

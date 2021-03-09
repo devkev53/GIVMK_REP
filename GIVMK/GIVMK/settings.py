@@ -39,11 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # LIBS
     'imagekit',
+    'ckeditor',
     #APPS
     'core',
     'user',
     'clientes',
     'catalogo',
+    'inventario',
 ]
 
 MIDDLEWARE = [
