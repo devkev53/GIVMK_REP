@@ -69,24 +69,24 @@ $(function (){
     });
 
     // Obtenemos el evento del boton eliminar
-    $('#listadoClientes tbody')
+    $('#listadoPedidos tbody')
         .on('click', 'button[rel="delete"]', function () {
             // tomamos la linea de la tabla
             var tr = tblPedidos.cell($(this).closest('td, li')).index();
             // tomamos el dato
             var data = tblPedidos.row(tr.row).data();
             // mandamos a pedir la url dinamica
-            var url = obtenerUrlDelete(data.id);
+            var url = obtenerUrl(data.id, 'eliminar');
             var parameters = new FormData();
             parameters.append('id', data.id);
-            var content = 'Se eliminara el siguiente cliente: '+ data.nombre;
+            var content = 'Se eliminara el pedido con fecha: '+ data.fecha;
             console.log(url);
             eliminarAjaxList(url, parameters, function (){
                 tblPedidos.ajax.reload(); }, content, 'Eliminar')
         });
 
     // Obtenemos el evento del boton editar
-    $('#listadoClientes tbody')
+    $('#listadoPedidos tbody')
         .on('click', 'button[rel="edit"]', function () {
             // tomamos la linea de la tabla
             var tr = tblPedidos.cell($(this).closest('td, li')).index();
@@ -99,7 +99,7 @@ $(function (){
         });
 
     // Obtenemos el evento del boton vista
-    $('#listadoClientes tbody')
+    $('#listadoPedidos tbody')
         .on('click', 'button[rel="view"]', function () {
 
             // tomamos la linea de la tabla

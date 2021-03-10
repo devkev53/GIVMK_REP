@@ -27,7 +27,7 @@ urlpatterns = [
     url('', include('clientes.urls')),
     url('', include('catalogo.urls')),
     url('', include('inventario.urls')),
-    path('', HomePageView.as_view()),
+    url('', include('core.urls')),
 ]
 
 # Truco para poder ver ficheros multimedia con el DEBUG=TRUE

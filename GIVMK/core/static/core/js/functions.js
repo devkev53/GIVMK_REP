@@ -95,9 +95,9 @@ function eliminarAjaxList(url, parameters, callback, content, title) {
                             callback();
                             return false;
                         }
-                        console.log(data.error)
+                        message_error(data.error)
                     }).fail(function (jqXHR, textStatus, errorThrown) {
-                        console.log('entro aqui XD')
+                        message_error('entro aqui XD')
                     }).always(function (data) {
                     })
                 }

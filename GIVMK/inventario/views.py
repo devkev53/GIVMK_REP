@@ -41,3 +41,12 @@ class PedidosListView(ListView):
         context = super().get_context_data(**kwargs)
         context['titulo'] = _('Listado de Pedidos')
         return context
+
+class PedidooDeleteView(DeleteView):
+    model = Pedido
+    success_url = reverse_lazy('pedidosList')
+
+    @method_decorator(login_required)
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
