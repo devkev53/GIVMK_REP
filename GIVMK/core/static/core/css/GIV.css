@@ -15,7 +15,7 @@ listadoProd_filter
 	border-top-left-radius: .35rem;
 	border-bottom-left-radius: .35rem;
 }
-.input-group>.form-control{
+.input-group>.money{
 	text-align: right;
 }
 .avatar-control{
@@ -28,6 +28,15 @@ input[type=button]{
 	border: none;
 	box-shadow: 2px 2px 2px #5a5c69;
 }
-input[type=button]:before{
-	content: 'Hola';
+#enlace_logout, #enlace_logout>i{
+	font-weight: bold;
+	color: #78261f !important;
+	font-size: 15px;
+}
+#add_new_prod_in_pedido{
+	border-top-left-radius: 0px;
+	border-bottom-left-radius: 0px;
+}
+textarea {
+  resize: none;
 }

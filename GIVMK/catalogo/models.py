@@ -36,8 +36,8 @@ def custom_upload_to(instance, filename):
 
 class Producto(Base):
     nombre = models.CharField('Nombre', max_length=125)
-    precio_consultora = models.DecimalField('Precio Consultora', max_digits=7, decimal_places=2)
-    precio_catalogo = models.DecimalField('Precio Catalogo', max_digits=7, decimal_places=2)
+    precio_consultora = models.DecimalField('Precio Consultora', max_digits=12, decimal_places=2)
+    precio_catalogo = models.DecimalField('Precio Catalogo', max_digits=12, decimal_places=2)
     descripcion = models.TextField('Decripción', blank=True, null=True)
     img = models.ImageField(
         upload_to='Catalogo/', null=True, blank=True, verbose_name='Imagen')
@@ -153,7 +153,7 @@ class Producto(Base):
     def get_img(self):
         if self.img_thubmnail:
             return '{}{}'.format(MEDIA_URL, self.img_thubmnail)
-        return '{}{}'.format(STATIC_URL, 'core/img/image-not.jpg')
+        return '{}{}'.format(STATIC_URL, 'core/img/NoImg.png')
 
     def image_thub(self):
         ''' Retornara una imagen para ser mostrada en al admin

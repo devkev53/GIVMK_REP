@@ -15,8 +15,6 @@
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">
 
-        <!-- Validamos si el usuario esta Autenticado para Mostrar su Info -->
-        {% if request.user.is_authenticated %}
             <!-- Nav Item - Alerts -->
             <li class="nav-item dropdown no-arrow mx-1">
                 <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
@@ -101,22 +99,13 @@
                         Activity Log
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                        Logout
+{#                    <a class="dropdown-item" href="#" id="enlace_logout" data-toggle="modal" data-target="#logoutModal">#}
+                    <a class="dropdown-item" href="{% url 'logout' %}" id="enlace_logout">
+                        <i class="fas fa-power-off mr-2"></i>
+                        Cerrar Sesion
                     </a>
                 </div>
             </li>
-        {% else %}
-            <li class="nav-item dropdown no-arrow">
-                <a class="btn btn-primary btn-icon-split" href="">
-                                <span class="icon text-white-50">
-                                    <i class="fas fa-sign-in-alt"></i>
-                                </span>
-                    <span class="text">{% trans 'SingIn' %}</span>
-                </a>
-            </li>
-        {% endif %}
 
     </ul>
 

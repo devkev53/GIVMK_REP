@@ -43,3 +43,16 @@ class ProductoForm(forms.ModelForm):
         #         'class': 'form-control'
         #     }),
         }
+
+    def save(self, commit=True):
+        data = {}
+        form = super()
+        try:
+            if form.is_valid():
+                instance = form.save()
+                data = instance.toJSON()
+            else:
+                data['error'] = form.errors
+        except Exception as e:
+            data['error'] = str(e)
+        return data

@@ -13,6 +13,7 @@
 
 <!-- Url's de Inventario -->
 {% url 'pedidosList' as  pedidosList %}
+{% url 'addPedido' as  addPedido %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +25,7 @@
 </head>
 
 <body id="page-top">
-
+    {% block envoltura %}
     <!-- Envoltura de la Pagina -->
     <div id="wrapper">
 
@@ -72,6 +73,7 @@
     <div class="modal fade" id="miModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         {% block modal %}{% endblock %}
     </div>
+    {% endblock %}
 
     <!-- Bootstrap core JavaScript-->
     <script src="{% static 'core/libs/jquery/jquery-3.4.1.min.js' %}"></script>

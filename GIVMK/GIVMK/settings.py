@@ -147,5 +147,13 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+# LOGIN REDIRECT PATH
+LOGIN_REDIRECT_URL = 'dashboard'
+
+# LOGIN REDIRECT PATH
+LOGOUT_REDIRECT_URL = 'logout'
+
+LOGIN_URL = 'login'
+
 # Definimos el modelo que se usuara como Modelo de Autenticacion
 AUTH_USER_MODEL = 'user.User'

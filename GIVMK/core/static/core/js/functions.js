@@ -1,3 +1,40 @@
+// Funcion para mostarar in mensaje de informacion
+function menssage_info(title, content){
+	$.alert({
+		icon: 'fas fa-info"',
+		type: 'dark',
+		theme: 'material',
+		title: title,
+		typeAnimated: true,
+		content: content,
+	});
+};
+function menssage_alert(color, icon, title, content, callback){
+	$.confirm({
+        type: color,
+        icon: icon,
+        title: title,
+        content: content,
+        columnClass: 'small',
+        typeAnimated: true,
+        draggable: true,
+        dragWindowBorder: false,
+        buttons: {
+            Ok: {
+                text: 'Si',
+                btnClass: 'btn-warning',
+                action: callback()
+            },
+            cancelar: {
+                text: 'Cancelar',
+                btnClass: 'btn-secondary',
+                action: function () {
+                }
+            },
+        }
+    });
+};
+
 // Funcion para mostrar mensajes de error
 function message_error(obj) {
     var html = '';
@@ -34,7 +71,6 @@ function submitAjaxFormData(url, parameters, callback, content, title, icon, col
                 text: 'Si',
                 btnClass: 'btn-success',
                 action: function () {
-                    console.log( parameters.get('img') );
                     $.ajax({
                         type: 'POST',
                         url: url,
@@ -44,7 +80,7 @@ function submitAjaxFormData(url, parameters, callback, content, title, icon, col
                         contentType: false,
                     }).done(function (data) {
                         if (!data.hasOwnProperty('error')) {
-                            callback();
+                            callback(data);
                             return false;
                         }
                         message_error(data.error)

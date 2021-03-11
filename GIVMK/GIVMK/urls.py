@@ -28,6 +28,7 @@ urlpatterns = [
     url('', include('catalogo.urls')),
     url('', include('inventario.urls')),
     url('', include('core.urls')),
+    url('', include('user.urls')),
 ]
 
 # Truco para poder ver ficheros multimedia con el DEBUG=TRUE

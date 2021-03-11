@@ -10,6 +10,7 @@ from django.core.validators import RegexValidator
 # Create your models here.
 
 class Pedido(Base):
+    fecha = models.DateField('Fecha de Ingreso')
     referencia = models.CharField(
         'Referencia de Pedido', max_length=150, blank=True, null=True,
         help_text='La referncia puede ser un dato de descripcion del porque realiza el pedido')

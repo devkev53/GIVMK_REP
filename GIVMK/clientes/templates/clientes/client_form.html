@@ -2,6 +2,16 @@
 {% load i18n %}
 {% load static %}
 
+{% block titulo %}
+<h6 class="m-0 font-weight-bold text-gray-800 text-uppercase">
+    {% if object %}
+        <i class="fas fa-user-edit"></i>
+    {% else %}
+        <i class="fas fa-user-plus mr-1"></i>
+    {% endif %}
+    {{ titulo }}
+</h6>
+{% endblock %}
 {% block campos_form %}
     <div class="form-group col-md-6">
         <label for="id_firts_name" class="form-label">{{ form.firts_name.label }}</label>

@@ -1,6 +1,21 @@
 {% extends 'core/bases/form_base.html' %}
 {% load static %}
 
+{% block title %}
+    {% if object %}
+        Editar Producto
+    {% else %}
+        Agregar Producto
+    {% endif %}
+{% endblock %}
+
+{% block titulo %}
+<h6 class="m-0 font-weight-bold text-gray-800 text-uppercase">
+    <i class="bi bi-bullseye"></i>
+    {{ titulo }}
+</h6>
+{% endblock %}
+
 {% block campos_form %}
     <div class="form-group col-md-6">
         <label for="id_nombre" class="form-label">{{ form.nombre.label }}:</label>
@@ -28,7 +43,7 @@
 
 {% block mis_script %}
     <script>
-        $('#id_precio_consultora').mask("#,##0.00", {reverse: true});
-        $('#id_precio_catalogo').mask("#,##0.00", {reverse: true});
+        $('#id_precio_consultora').mask("###0.00", {reverse: true});
+        $('#id_precio_catalogo').mask("###0.00", {reverse: true});
     </script>
 {% endblock %}

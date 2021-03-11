@@ -1,0 +1,254 @@
+{% extends 'core/bases/form_base.html' %}
+{% load static %}
+
+
+{% block title %}
+    {{ titulo }}
+{% endblock %}
+
+{% block titulo %}
+<h6 class="m-0 font-weight-bold text-gray-800 text-uppercase">
+    {% if object %}
+        <i class="fas fa-user-edit"></i>
+    {% else %}
+        <i class="fas fa-box-open"></i>
+    {% endif %}
+    {{ titulo }}
+</h6>
+{% endblock %}
+
+{% block card_body %}
+    <div class="row">
+        <!-- Card de Detalle de Pedido (Productos) -->
+        <div class="col-md-9">
+
+            <div class="card mb-3 shadow" style="max-width: 100%;">
+                <div class="card-header card_detalle_pedido text-uppercase">
+                    <b><span class="icon-star2 mr-2"></span>Detalle de Pedido</b>
+                </div>
+
+                <div class="card-body">
+                    <div class="form-group">
+
+                        <div class="input-group">
+                            <input class="select2 form-control pedido_search"
+                                   placeholder="Ingrese una descripcion de producto" name="search"
+                                   autocomplete="off" type="text">
+                            <button type="button" class="btn btn-info" id="add_new_prod_in_pedido">
+                                <svg width="1rem" height="1rem" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="layer-plus" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-layer-plus fa-w-16 fa-2x"><path fill="currentColor" d="M304 144h64v64c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16v-64h64c8.84 0 16-7.16 16-16V96c0-8.84-7.16-16-16-16h-64V16c0-8.84-7.16-16-16-16h-32c-8.84 0-16 7.16-16 16v64h-64c-8.84 0-16 7.16-16 16v32c0 8.84 7.16 16 16 16zm195.59 220.1l-58.54-26.53-161.19 73.06c-7.56 3.43-15.59 5.17-23.86 5.17s-16.29-1.74-23.86-5.17L70.95 337.57 12.41 364.1c-16.55 7.5-16.55 32.5 0 40l232.94 105.59c6.8 3.08 14.49 3.08 21.29 0L499.59 404.1c16.55-7.5 16.55-32.5 0-40zM12.41 275.9l232.94 105.59c6.8 3.08 14.49 3.08 21.29 0L448 299.28V280.7c-15.32 4.38-31.27 7.29-48 7.29-88.01 0-160.72-64.67-173.72-149.04L12.41 235.9c-16.55 7.5-16.55 32.5 0 40z" class=""></path></svg>
+                            </button>
+                        </div>
+
+                        <hr>
+                        <button type="button" class="btn btn-danger btn-sm btnRemoveAll"><i
+                                class="fas fa-trash-alt mr-2"></i>Limpiar Detalle
+                        </button>
+                        <hr>
+                        <div class="table-responsive">
+                            <table id="products_table" class="table table-striped" style="width:100%">
+                                <thead>
+                                <tr class="" style="font-size: 12px;">
+                                    <th>Eliminar</th>
+                                    <th>Producto</th>
+                                    <th width="14%">Precio Consultora</th>
+                                    <th width="14%">Precio Catalogo</th>
+                                    <th width="15%">Cantidad</th>
+                                    <th width="15%">Subtotal</th>
+                                </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Card Datos del Pedido (Montos y Fecha) -->
+        <div class="col-md-3">
+
+            <div class="card mb-3 shadow" style="max-width: 100%;">
+
+                <div class="card-header card_detalle_pedido text-uppercase">
+                    <b><span class="icon-list-nested mr-2"></span>Datos del Ingreso</b>
+                </div>
+
+                <div class="card-body info_ingreso">
+                    <input type="hidden" name="action" value="{{ action }}">
+
+                    {# Referencia #}
+                    <div class="form-group">
+                        <label for="">Referencia del Pedido:</label>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text bg-gradient-light" id="basic-addon1">
+                                <i class="fas fa-info-circle text-info"></i>
+                            </span>
+                            {{ form.referencia }}
+                        </div>
+                    </div>
+                    {# Fecha #}
+                    <div class="form-group">
+                        <label for="">Fecha de Ingreso Pedido:</label>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text" id="basic-addon1">
+                                <i class="fas fa-calendar-alt"></i>
+                            </span>
+                            {{ form.fecha }}
+                        </div>
+
+                    </div>
+                    {# Precio Consultora #}
+                    <div class="form-group">
+                        <label for="">Total Pedido Precio Consultora:</label>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text" id="basic-addon1">
+                                <i class="fab fa-quora"></i>
+                            </span>
+                            {{ form.totalConsultora }}
+                        </div>
+                    </div>
+                    {# Precia Catalogo #}
+                    <div class="form-group">
+                        <label for="">Total Pedido Precio Catalógo:</label>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text" id="basic-addon1">
+                                <i class="fab fa-quora"></i>
+                            </span>
+                            {{ form.totalCatalogo }}
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+{#Agregar Productos en el Pedido#}
+{% block modal %}
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+        <form method="post" id="miFormProducto" enctype='multipart/form-data'>
+            <div class="card border-left-dark shadow h-100">
+                <div class="modal-header d-inline-block m-0 font-weight-bold text-gray-800 text-uppercase"
+                ">
+                    <i class="bi bi-bullseye"></i>
+                    Registrar Producto
+                    <!-- Boton Cerrar modal -->
+                    <button type="button" class="close" data-dismiss="modal">
+                        <i class="fas fa-window-close text-danger"></i>
+                    </button>
+                </div>
+
+                <div class="card-body mt-3 py-0">
+                    <div class="row">
+                        <!-- Agregar imagen -->
+                        <div class="row align-items-center">
+                            <div class="form-group col-md-3 mr-4" id="preview">
+                                <img id="view_img" src="
+                                {% static 'core/img/NoImg.png' %}"
+                                     alt="" class="rounded-circle" width="150" height="150">
+                            </div>
+                            <div class="form-group col-md-8 ml-4">
+                                <label for="" class="form-label">{{ form.img.label }}</label>
+                                {{ formProducto.img }}
+                            </div>
+                        </div>
+                        <!-- Campos -->
+                        <input type="hidden" name="action" value="crearProd">
+                        <div class="form-group col-12">
+                            {{ formProducto.nombre }}
+                        </div>
+                        <div class="form-group input-group-sm col-md-6">
+                            <label for="id_precio_consultora"
+                                   class="form-label">{{ formProducto.precio_consultora.label }}:</label>
+                            <div class="input-group">
+                                <span class="input-group-text" id="basic-addon1">Q. </span>
+                                {{ formProducto.precio_consultora }}
+                            </div>
+                        </div>
+                        <div class="form-group input-group-sm col-md-6">
+                            <label for="id_precio_catalogo"
+                                   class="form-label">{{ formProducto.precio_catalogo.label }}:</label>
+                            <div class="input-group">
+                                <span class="input-group-text" id="basic-addon1">Q. </span>
+                                {{ formProducto.precio_catalogo }}
+                            </div>
+                        </div>
+                        <div class="form-group input-group-sm col-12">
+                            <label for="id_descripcion" class="form-label">{{ formProducto.descripcion.label }}:</label>
+                            {{ formProducto.descripcion }}
+                        </div>
+                    </div>
+                </div>
+
+            <div class="card-footer py-0 mb-2">
+                <div class="buttons mt-2 d-flex justify-content-end">
+                    <button type="submit" class="btn btn-success btn-icon-split mr-4">
+                <span class="icon text-white">
+                    <i class="fas fa-save mr-1"></i>
+                </span>
+                        <span class="text text-uppercase">
+                    Guardar
+                </span>
+                    </button>
+                    <button id="btnCerrarMiModal" class="btn btn-danger btn-icon-split">
+                <span class="icon text-white">
+                    <i class="fas fa-backspace mr-1"></i>
+                </span>
+                        <span class="text text-uppercase">
+                    Cancelar
+                </span>
+                    </button>
+                </div>
+            </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block mis_script %}
+    <script>
+        var addProdUrl = '{{ addProductos }}'
+        var color;
+        var icon;
+        var bntSidebar = $('#sidebarToggle');
+            bntSidebar.click();
+            bntSidebar.prop('disabled', true);
+        var titulo = '{{ titulo }}';
+        var content = '{{ contentAlert }}';
+        {% if object %}
+            color = 'purple';
+            icon = 'fas fa-edit';
+        {% else %}
+            color = 'blue';
+            icon = 'fas fa-save';
+        {% endif %}
+    </script>
+{% endblock %}
+{% block js_this_form %}
+     <!-- Select2 -->
+    <link rel="stylesheet" href="{% static 'core/libs/Select2/css/select2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'core/libs/Select2/css/select2-bootstrap4.min.css' %}">
+    <script src="{% static 'core/libs/Select2/js/select2.min.js' %}"></script>
+    <script src="{% static 'core/libs/Select2/js/es.js' %}"></script>
+
+    <!-- DataTable CSS -->
+    <link rel="stylesheet" href="{% static 'core/libs/DataTables/dataTables.bootstrap4.min.css' %}">
+    <!-- DataTable SCRIPT -->
+    <script src="{% static 'core/libs/DataTables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'core/libs/DataTables/dataTables.bootstrap4.min.js' %}"></script>
+
+    <!-- Touch_Spin -->
+    <link rel="stylesheet" href="{% static 'core/libs/touchspin/jquery.bootstrap-touchspin.min.css' %}">
+    <script src="{% static 'core/libs/touchspin/jquery.bootstrap-touchspin.min.js' %}"></script>
+
+
+    <script src="{% static 'inventario/js/form_pedido.js' %}"></script>
+{% endblock %}
+

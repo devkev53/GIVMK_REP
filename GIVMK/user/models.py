@@ -43,4 +43,4 @@ class User(AbstractUser):
     def get_img(self):
         if self.img_thubmnail:
             return '{}{}'.format(MEDIA_URL, self.img_thubmnail)
-        return '{}{}'.format(STATIC_URL, 'core/img/image-not.jpg')
+        return '{}{}'.format(STATIC_URL, 'core/img/NoImg.png')
