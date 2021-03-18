@@ -68,9 +68,10 @@ class Producto(Base):
         return item
 
     def existencia(self):
-        # from inventario.models import Ingreso, IngresoDetalle
-        # from ventas.models import VentaDetalle
         cantidad = 0
+        from inventario.models import DetallePedido
+        for p in DetallePedido.objects.filter(producto_id=self.id):
+            cantidad += p.cantidad
         # Sumamos los ingresos a el inventario
         # for ingreso in IngresoDetalle.objects.filter(id_producto=self.id):
         #     cantidad += ingreso.cantidad

@@ -1,12 +1,8 @@
 .table td, .table th {
 	vertical-align: middle;
 }
-listadoProd_paginate
-listadoProd_filter
-.dataTables_filter{
-	align-content: end;
-	justify-items: right;
-}
+
+
 .top10{
 	border-left: 2px solid #A4B0AE;
 }

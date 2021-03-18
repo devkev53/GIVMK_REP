@@ -37,6 +37,12 @@ class PedidosListView(ListView):
                 data = []
                 for i in Pedido.objects.all():
                     data.append(i.toJSON())
+            elif action == 'search_details_prod':
+                data = []
+                pedido = Pedido.objects.filter(id=request.POST['id']).get()
+                for d in DetallePedido.objects.filter(pedido=pedido):
+                    data.append(d.toJSON())
+                print(data)
             else:
                 data['error'] = 'Ha ocurrido un error'
         except Exception as e:

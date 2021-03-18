@@ -29,10 +29,17 @@ class Pedido(Base):
         item['totalConsultora'] = format(self.totalConsultora, '.2f')
         item['totalCatalogo'] = format(self.totalCatalogo, '.2f')
         item['ganancia'] = format((self.totalCatalogo - self.totalConsultora), '.2f')
+        item['cantidadProd'] = self.contProds()
         return item
 
     def __str__(self):
         return '%s %s' % (self.dateCreate, self.referencia)
+
+    def contProds(self):
+        total = 0
+        for det in DetallePedido.objects.filter(pedido_id=self.id):
+            total += det.cantidad
+        return total
 
 class DetallePedido(Base):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE,
@@ -60,13 +67,14 @@ class DetallePedido(Base):
         item['producto'] = self.producto.toJSON()
         item['pConsultora'] = format(self.pConsultora, '.2f')
         item['pCatalogo'] = format(self.pCatalogo, '.2f')
+        item['subConsultora'] = format(self.subTotalConsultora(), '.2f')
+        item['subCatalogo'] = format(self.subTotalCatalogo(), '.2f')
         return item
 
-    def subTotalCOnsultora(self):
-        total = 0
+    def subTotalConsultora(self):
         total = self.pConsultora * self.cantidad
         return float(total)
-    def subTotalCOnsultora(self):
-        total = 0
-        total = self.pConsultora * self.cantidad
+
+    def subTotalCatalogo(self):
+        total = self.pCatalogo * self.cantidad
         return float(total)

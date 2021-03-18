@@ -1,4 +1,5 @@
 $(function (){
+    // Seteamos las mascaras de los precios
     $('#id_precio_consultora').mask("###0.00", {reverse: true});
     $('#id_precio_catalogo').mask("###0.00", {reverse: true});
 
@@ -13,9 +14,10 @@ $(function (){
         }
     };
 
-    var disparado = false;
-    // Funcion para validar el cambio
+    // creamos una variable de disparo
+    var disparadoImg = false;
 
+    // Funcion para validar el cambio de imagen
     function changeImg(){
         input_imagen.addEventListener('change', function(e) {
             validarTipoArchivo2(input_imagen);
@@ -44,12 +46,13 @@ $(function (){
             return 1;
         });
     }
+
     // Limpiar el formulario al ocultar el modal
     $('#miModal').on('hidden.bs.modal', function (e){
         $('#miFormProducto').trigger('reset');
         // Limpiamos el preview colocando la imagen de principio;
-        input_imagen.addEventListener('change',(event) => {disparado = true});
-        if (disparado==true){
+        input_imagen.addEventListener('change',(event) => {disparadoImg = true});
+        if (disparadoImg==true){
             image.src = img_original;
         };
     });
@@ -91,13 +94,9 @@ $(function (){
 
     // Funcion para llamar al modal y poder crear el producto
     function abrirModalProd(){
-	    // Seteamos que no se pueda cerrar solo con los botones
-        $("#miModal").modal({
-            backdrop: 'static',
-            keyboard: false
-        });
-        // Abrimos el Modal
-        $("#miModal").modal('show');
+	    // Llamamos a la funcion del JS base para abrir el modal sin url
+        abrirModal();
+
         // Agreamos el evento de cambio
         changeImg();
     };

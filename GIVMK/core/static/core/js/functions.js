@@ -1,3 +1,14 @@
+// Funcion para llamar al modal y poder crear el producto
+function abrirModal() {
+    // Seteamos que no se pueda cerrar solo con los botones
+    $("#miModal").modal({
+        backdrop: 'static',
+        keyboard: false
+    });
+    // Abrimos el Modal
+    $("#miModal").modal('show');
+};
+
 // Funcion para mostarar in mensaje de informacion
 function menssage_info(title, content){
 	$.alert({
@@ -9,6 +20,8 @@ function menssage_info(title, content){
 		content: content,
 	});
 };
+
+// Funcion para mostrar mensaje de alerta
 function menssage_alert(color, icon, title, content, callback){
 	$.confirm({
         type: color,
